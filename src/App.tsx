@@ -1,35 +1,47 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+// import 'firebase/compat/firestore';
+
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contacts'
+import People from './pages/People'
+import Projects from './pages/Projects'
+import NoPage from './pages/NoPage'
+import Navbar from './components/Navbar'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            <Navbar />
+            <Router>
+                <div className="App">
+                    <Routes>
+                        <Route index element={<Home />} />
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/contacts" element={<Contact />} />
+                        <Route path="/projects" element={<Projects />} />
+                        <Route path="/people" element={<People />} />
+
+                        <Route path="*" element={<NoPage />}></Route>
+                    </Routes>
+                </div>
+            </Router>
+
+            <div className="card">
+                <button onClick={() => setCount((count) => count + 1)}>
+                    count is {count}
+                </button>
+            </div>
+        </>
+    )
 }
 
 export default App
