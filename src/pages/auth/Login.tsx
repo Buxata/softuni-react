@@ -3,6 +3,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+
 export interface IloginPageProprs {}
 
 const LoginPage: React.FunctionComponent<IloginPageProprs> = (props) => {
