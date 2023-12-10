@@ -1,10 +1,18 @@
-import './Navbar.css'
+import React from 'react';
+import { getAuth, signOut } from 'firebase/auth';
 
-export default function Navbar() {
+import './Navbar.css';
+
+export interface INavBarProps {}
+
+const Navbar: React.FunctionComponent<INavBarProps> = (props) => {
+    console.log('these are my current props: ' + JSON.stringify(props));
+
+    const auth = getAuth();
     return (
         <ul className="navigation">
             <li>
-                <a href="/home">Home</a>
+                <a href="/">Home</a>
             </li>
             <li>
                 <a href="/about">About</a>
@@ -18,6 +26,14 @@ export default function Navbar() {
             <li>
                 <a href="/people">People</a>
             </li>
+            <li>
+                <a href="/home">User</a>
+            </li>
+            <li >
+                <button onClick={() => signOut(auth) }>Sign Out</button>
+            </li>
         </ul>
-    )
-}
+    );
+};
+
+export default Navbar;

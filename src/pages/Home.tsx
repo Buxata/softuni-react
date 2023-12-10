@@ -1,13 +1,14 @@
-export default function () {
+import React from 'react';
+
+export interface IHomePageProps {}
+
+const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
+    console.log('these are my current props: ' + JSON.stringify(props));
     return (
         <div>
-            <h2>Home Page</h2>
-            <div
-                style={{
-                    width: '600px',
-                    height: '400px',
-                }}
-            />
+            <p> Home Page (Protected by firebase)</p>
         </div>
-    )
-}
+    );
+};
+
+export default HomePage;
