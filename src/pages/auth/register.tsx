@@ -9,7 +9,6 @@ import iPageProps from '../../interfaces/page';
 import { FirebaseError } from '@firebase/util';
 import logging from '../../config/logging';
 
-export interface IRegisterPageProps {}
 
 const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     const [registering, setRegistering] = useState(false);

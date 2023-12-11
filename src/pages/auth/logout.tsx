@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../config/firebase/firebaseAuth';
 import logging from '../../config/logging';
 
-export interface ILogOutPageProps {}
 
 const LogOutPage: React.FunctionComponent<IPageProps> = (props) => {
     const navigate = useNavigate();

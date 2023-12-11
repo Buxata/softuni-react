@@ -26,11 +26,11 @@ import './App.css';
 import IRoute from './interfaces/route';
 import React from 'react';
 
+const FirebaseInstance = firebaseApp;
+
 export interface IApp {
     name: string;
 }
-
-const FirebaseInstance = firebaseApp;
 
 const App: React.FunctionComponent<IApp> = (props) => {
     if(FirebaseInstance){

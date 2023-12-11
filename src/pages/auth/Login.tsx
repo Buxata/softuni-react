@@ -10,8 +10,6 @@ import iPageProps from '../../interfaces/page';
 import logging from '../../config/logging';
 import { FirebaseError } from '@firebase/util';
 
-export interface ILoginPageProps {}
-
 const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
     console.log('these are my current props: ' + JSON.stringify(props));
 

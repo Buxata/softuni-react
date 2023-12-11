@@ -1,12 +1,12 @@
-import IRoute from "../interfaces/route";
-import ChangePasswordPage from "../pages/auth/change";
-import UserPage from "../pages/auth/user";
+import IRoute from '../interfaces/route';
+import ChangePasswordPage from '../pages/auth/change';
+import UserPage from '../pages/auth/user';
 // import ForgotPasswordPage from "../pages/auth/forgot";
-import LoginPage from "../pages/auth/login";
-import LogoutPage from "../pages/auth/logout";
-import RegisterPage from "../pages/auth/register";
+import LoginPage from '../pages/auth/login';
+import LogoutPage from '../pages/auth/logout';
+import RegisterPage from '../pages/auth/register';
 // import ResetPasswordPage from "../pages/auth/reset";
-import HomePage from "../pages/Home";
+import HomePage from '../pages/Home';
 
 const routes: IRoute[] = [
     {
@@ -16,7 +16,7 @@ const routes: IRoute[] = [
         name: 'Home',
         protected: true,
         navbar: false,
-        navbar_authed: false
+        navbar_authed: false,
     },
     {
         path: '/home',
@@ -25,7 +25,7 @@ const routes: IRoute[] = [
         name: 'Home',
         protected: true,
         navbar: false,
-        navbar_authed: true
+        navbar_authed: true,
     },
     {
         path: '/register',
@@ -34,8 +34,7 @@ const routes: IRoute[] = [
         name: 'Register',
         protected: false,
         navbar: true,
-        navbar_authed: false
-
+        navbar_authed: false,
     },
     {
         path: '/login',
@@ -44,7 +43,7 @@ const routes: IRoute[] = [
         name: 'Login',
         protected: false,
         navbar: true,
-        navbar_authed: false
+        navbar_authed: false,
     },
     {
         path: '/user',
@@ -53,7 +52,7 @@ const routes: IRoute[] = [
         name: 'User',
         protected: true,
         navbar: false,
-        navbar_authed: true
+        navbar_authed: true,
     },
     {
         path: '/change',
@@ -62,7 +61,7 @@ const routes: IRoute[] = [
         name: 'Change Password',
         protected: true,
         navbar: false,
-        navbar_authed: false
+        navbar_authed: false,
     },
     {
         path: '/logout',
@@ -71,7 +70,7 @@ const routes: IRoute[] = [
         name: 'Logout',
         protected: true,
         navbar: false,
-        navbar_authed: true
+        navbar_authed: true,
     },
     // {
     //     path: '/forget',
