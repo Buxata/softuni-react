@@ -1,13 +1,12 @@
-export default function () {
+import React from 'react';
+import IPageProps from '../interfaces/page';
+
+const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
     return (
-        <div>
-            <h2>Projects Page</h2>
-            <div
-                style={{
-                    width: '600px',
-                    height: '400px',
-                }}
-            />
-        </div>
+        <>
+            <h1>{props.name}</h1>
+        </>
     );
-}
+};
+
+export default ProjectsPage;

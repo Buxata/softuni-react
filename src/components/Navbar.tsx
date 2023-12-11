@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import routes from '../config/routes';
-import { auth } from '../config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import auth from '../config/firebase/firebaseAuth';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import IRoute from '../interfaces/route';
 
 export interface INavBarProps {
@@ -15,7 +15,7 @@ const Navbar: React.FunctionComponent<INavBarProps> = (props) => {
     console.log(props.name);
     const [navRoutes, setNavRoutes] = useState<IRoute[]>();
     useEffect(() => {
-        const updateNavRoutes = (user: any) => {
+        const updateNavRoutes = (user: User | null) => {
             if (user) {
                 setNavRoutes(
                     routes.filter((route) => route.navbar_authed === true)
@@ -34,7 +34,7 @@ const Navbar: React.FunctionComponent<INavBarProps> = (props) => {
     return (
         <ul className="navigation">
             {navRoutes &&
-                navRoutes.map((route: any, index: any) => {
+                navRoutes.map((route: IRoute, index: number) => {
                     return (
                         <li key={index}>
                             <Link to={route.path}>{route.name}</Link>

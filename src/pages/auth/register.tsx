@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, createUserWithEmailAndPassword } from '../../config/firebase';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
+import auth from '../../config/firebase/firebaseAuth';
 import AuthContainer from '../../components/AuthContainer';
 import { Button, FormGroup, Input } from 'reactstrap';
 import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';
+import { FirebaseError } from '@firebase/util';
+import logging from '../../config/logging';
 
 export interface IRegisterPageProps {}
 
@@ -18,6 +21,7 @@ const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     const navigate = useNavigate();
 
     const signUpWithEmailAndPassword = () => {
+        
         if (password !== confirm)
             setError('Please make sure your passwords martch');
         if (error !== '') setError('');
@@ -25,12 +29,12 @@ const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
         setRegistering(true);
 
         createUserWithEmailAndPassword(auth, email, password)
-            .then((result: any) => {
+            .then((result: object) => {
                 console.log(JSON.stringify(result));
                 navigate('/login');
             })
-            .catch((error: any) => {
-                console.log(JSON.stringify(error));
+            .catch((error: FirebaseError) => {
+                logging.error(error.message);
 
                 if (error.code.includes('auth/weak-password')) {
                     setError('Please enter a stronger password.');

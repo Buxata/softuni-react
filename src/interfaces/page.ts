@@ -1,3 +1,4 @@
 export default interface IPageProps {
-    name: string;
+    name: string
+// eslint-disable-next-line semi
 }

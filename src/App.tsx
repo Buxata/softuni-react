@@ -3,12 +3,11 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    useLocation,
 } from 'react-router-dom';
-import { Spinner } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 
-import firebaseApp from './config/firebase';
-import { auth } from './config/firebase';
+import firebaseApp from './config/firebase/firebase';
+import auth from './config/firebase/firebaseAuth';
 
 // import Home from './pages/Home';
 // import About from './pages/About';
@@ -24,18 +23,19 @@ import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
 
 import './App.css';
+import IRoute from './interfaces/route';
+import React from 'react';
 
-export interface IApp {}
+export interface IApp {
+    name: string;
+}
 
 const FirebaseInstance = firebaseApp;
 
 const App: React.FunctionComponent<IApp> = (props) => {
-    console.log(
-        'these are my current props: ' +
-            JSON.stringify(props) +
-            '\nFirebase instance' +
-            JSON.stringify(FirebaseInstance)
-    );
+    if(FirebaseInstance){
+        console.log("Firebase Instance is detected");
+    }
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -56,7 +56,7 @@ const App: React.FunctionComponent<IApp> = (props) => {
     return (
         <>
             <Router>
-                <Navbar name="navbar" />
+                <Navbar name={props.name} />
                 <div>
                     <Routes>
                         {routes.map((route, index) => (
@@ -66,31 +66,30 @@ const App: React.FunctionComponent<IApp> = (props) => {
                                 element={<RouteHandler route={route} />}
                             />
                         ))}
-                        <Route path="*" element={<NoPage />} />
+                        <Route path="*" element={<NoPage name="Page Not Found - the dreaded 404"/>} />
                     </Routes>
                 </div>
             </Router>
             <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
+                <Button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
-                </button>
+                </Button>
             </div>
         </>
     );
 };
 
-const RouteHandler: React.FunctionComponent<{ route: any }> = ({ route }) => {
-    const location = useLocation();
+const RouteHandler: React.FunctionComponent<{ route: IRoute }> = ({ route }) => {
 
     if (route.protected) {
         return (
             <AuthRoute>
-                <route.component location={location} name={route.name} />
+                <route.component component={route.component} name={route.name} path={route.path} exact={route.exact} protected={route.protected} navbar={route.navbar} navbar_authed={route.navbar_authed} />
             </AuthRoute>
         );
     }
 
-    return <route.component location={location} name={route.name} />;
+    return <route.component component={route.component} name={route.name} path={route.path} exact={route.exact} protected={route.protected} navbar={route.navbar} navbar_authed={route.navbar_authed} />;
 };
 
 export default App;

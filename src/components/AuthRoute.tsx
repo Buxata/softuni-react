@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import auth from '../config/firebase/firebaseAuth';
 import { useNavigate } from 'react-router-dom';
 import logging from '../config/logging';
 
@@ -26,7 +26,7 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
         };
 
         authCheck();
-    }, [auth, navigate]);
+    }, [navigate]);
 
     if (loading) {
         return <p>Loading....</p>;

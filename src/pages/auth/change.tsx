@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, FormGroup, Input } from 'reactstrap';
 import AuthContainer from '../../components/AuthContainer';
 import ErrorText from '../../components/ErrorText';
-import { auth } from '../../config/firebase';
+import auth from '../../config/firebase/firebaseAuth';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
 import { User, updatePassword } from 'firebase/auth';
@@ -17,8 +17,8 @@ const ChangePasswordPage: React.FunctionComponent<IPageProps> = (props) => {
 
     const navigate = useNavigate();
 
-    function isUser(variable: any): variable is User {
-        return variable && typeof variable === 'object' && 'uid' in variable;
+    function isUser(variable: object | null): variable is User {
+        return variable !== null && typeof variable === 'object' && 'uid' in variable;
     }
 
     const passwordChangeRequest = () => {

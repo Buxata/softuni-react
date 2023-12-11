@@ -1,11 +1,11 @@
 import React from 'react';
 import IPageProps from '../../interfaces/page';
-import { auth } from '../../config/firebase';
+import auth from '../../config/firebase/firebaseAuth';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 
-function isUser(variable: any): variable is User {
-    return variable && typeof variable === 'object' && 'uid' in variable;
+function isUser(variable: object | null): variable is User {
+    return variable !== null && typeof variable === 'object' && 'uid' in variable;
 }
 
 const UserPage: React.FunctionComponent<IPageProps> = (props) => {

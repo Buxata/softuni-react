@@ -1,13 +1,13 @@
+// firebaseUtils.ts
 import { initializeApp } from 'firebase/app';
 import {
     getAuth,
     GoogleAuthProvider,
-    createUserWithEmailAndPassword, //,
     signInWithEmailAndPassword,
     signInWithPopup,
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import config from '../config/config';
+import config from '../config';
 
 const firebaseApp = initializeApp(config.firebaseConfig);
 
@@ -22,10 +22,7 @@ export {
     auth,
     firestore,
     Providers,
-    createUserWithEmailAndPassword,
-    firebaseApp, // Export the initialized app instance
+    firebaseApp,
     signInWithEmailAndPassword,
-    signInWithPopup
+    signInWithPopup,
 };
-
-export default firebaseApp;

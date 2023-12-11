@@ -1,17 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import {
-    auth,
-    // Providers,
-    signInWithEmailAndPassword,
-    // signInWithPopup,
-} from '../../config/firebase';
+import auth from '../../config/firebase/firebaseAuth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import AuthContainer from '../../components/AuthContainer';
 import { Button, FormGroup, Input } from 'reactstrap';
 import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';
 import logging from '../../config/logging';
+import { FirebaseError } from '@firebase/util';
 
 export interface ILoginPageProps {}
 
@@ -43,12 +40,12 @@ const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
     const signInWithEmail = () => {
         setAauthing(true);
         signInWithEmailAndPassword(auth, email, password)
-            .then((result: any) => {
+            .then((result: object) => {
                 console.log(JSON.stringify(result));
                 navigate('/');
             })
-            .catch((error: any) => {
-                logging.error(error);
+            .catch((error: FirebaseError) => {
+                logging.error(error.message);
                 setAauthing(false);
                 if (error.code.includes('auth/invalid-email')) {
                     setError('Invalid email, please try again.');
@@ -88,7 +85,8 @@ const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
                     disabled={authing}
                     color="success"
                     block
-                    onClick={() => signInWithEmail()}
+                    onClick={()=> signInWithEmail()}
+                    type='submit'
                 >
                     Sign In
                 </Button>

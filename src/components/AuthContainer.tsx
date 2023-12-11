@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap';
 
 export interface IAuthContainerProps {
     children: React.ReactNode;
-    header: any;
+    header: string;
 }
 
 const AuthContainer: React.FunctionComponent<IAuthContainerProps> = (props) => {

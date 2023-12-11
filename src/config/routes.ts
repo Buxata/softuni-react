@@ -1,8 +1,8 @@
 import IRoute from "../interfaces/route";
 import ChangePasswordPage from "../pages/auth/change";
-import UserPage from "../pages/auth/user"
+import UserPage from "../pages/auth/user";
 // import ForgotPasswordPage from "../pages/auth/forgot";
-import LoginPage from "../pages/auth/login"
+import LoginPage from "../pages/auth/login";
 import LogoutPage from "../pages/auth/logout";
 import RegisterPage from "../pages/auth/register";
 // import ResetPasswordPage from "../pages/auth/reset";
