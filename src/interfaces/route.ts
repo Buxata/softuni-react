@@ -4,4 +4,6 @@ export default interface IRoute {
     component: any;
     name: string;
     protected: boolean;
+    navbar: boolean;
+    navbar_authed: boolean;
 }

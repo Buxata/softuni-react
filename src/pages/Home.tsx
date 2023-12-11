@@ -1,14 +1,11 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import IPageProps from '../interfaces/page';
 
-export interface IHomePageProps {}
-
-const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
-    console.log('these are my current props: ' + JSON.stringify(props));
+const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     return (
         <div>
+            <h1>{props.name}</h1>
             <p> Home Page (Protected by firebase)</p>
-            <Button >Logg out </Button>
         </div>
     );
 };

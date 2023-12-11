@@ -15,7 +15,7 @@ import { auth } from './config/firebase';
 // import Contact from './pages/Contacts';
 // import People from './pages/People';
 // import Projects from './pages/Projects';
-// import NoPage from './pages/NoPage';
+import NoPage from './pages/NoPage';
 // import Login from './pages/auth/Login';
 import routes from './config/routes';
 import logging from './config/logging';
@@ -55,20 +55,21 @@ const App: React.FunctionComponent<IApp> = (props) => {
     // initializeApp(config.firebaseConfig);
     return (
         <>
-            <Navbar />
-                <Router>
-                    <div>
-                        <Routes>
-                            {routes.map((route, index) => (
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    element={<RouteHandler route={route} />}
-                                />
-                            ))}
-                        </Routes>
-                    </div>
-                </Router>
+            <Router>
+                <Navbar name="navbar" />
+                <div>
+                    <Routes>
+                        {routes.map((route, index) => (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={<RouteHandler route={route} />}
+                            />
+                        ))}
+                        <Route path="*" element={<NoPage />} />
+                    </Routes>
+                </div>
+            </Router>
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
@@ -84,12 +85,12 @@ const RouteHandler: React.FunctionComponent<{ route: any }> = ({ route }) => {
     if (route.protected) {
         return (
             <AuthRoute>
-                <route.component location={location} />
+                <route.component location={location} name={route.name} />
             </AuthRoute>
         );
     }
 
-    return <route.component location={location} />;
+    return <route.component location={location} name={route.name} />;
 };
 
 export default App;

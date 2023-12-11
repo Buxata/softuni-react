@@ -1,13 +1,8 @@
-export default function () {
-    return (
-        <div className="page-container">
-            <h2>About Page</h2>
-            <div
-                style={{
-                    width: '600px',
-                    height: '400px',
-                }}
-            />
-        </div>
-    );
-}
+import React from 'react';
+import IPageProps from '../interfaces/page';
+
+const AboutPage: React.FunctionComponent<IPageProps> = (props) => {
+    return <h1>{props.name}</h1>;
+};
+
+export default AboutPage;

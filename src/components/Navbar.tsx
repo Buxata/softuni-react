@@ -1,37 +1,49 @@
-import React from 'react';
-import { getAuth, signOut } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
 
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+import routes from '../config/routes';
+import { auth } from '../config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import IRoute from '../interfaces/route';
 
-export interface INavBarProps {}
+export interface INavBarProps {
+    name: string;
+}
 
 const Navbar: React.FunctionComponent<INavBarProps> = (props) => {
-    console.log('these are my current props: ' + JSON.stringify(props));
+    console.log(props.name);
+    const [navRoutes, setNavRoutes] = useState<IRoute[]>();
+    useEffect(() => {
+        const updateNavRoutes = (user: any) => {
+            if (user) {
+                setNavRoutes(
+                    routes.filter((route) => route.navbar_authed === true)
+                );
+            } else {
+                setNavRoutes(routes.filter((route) => route.navbar === true));
+            }
+        };
 
-    const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, updateNavRoutes);
+
+        // Cleanup function to unsubscribe when the component is unmounted
+        return () => unsubscribe();
+    }, []); // Empty dependency array means this effect runs once after the initial render
+
     return (
         <ul className="navigation">
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/about">About</a>
-            </li>
-            <li>
-                <a href="/contacts">Contacts</a>
-            </li>
-            <li>
-                <a href="/projects">Projects</a>
-            </li>
-            <li>
-                <a href="/people">People</a>
-            </li>
-            <li>
-                <a href="/home">User</a>
-            </li>
-            <li >
-                <button onClick={() => signOut(auth) }>Sign Out</button>
-            </li>
+            {navRoutes &&
+                navRoutes.map((route: any, index: any) => {
+                    return (
+                        <li key={index}>
+                            <Link to={route.path}>{route.name}</Link>
+                        </li>
+                    );
+                })}
+            {/* <li>
+                <Button onClick={() => navigate('/logout')}>Sign Out</Button>
+            </li> */}
         </ul>
     );
 };

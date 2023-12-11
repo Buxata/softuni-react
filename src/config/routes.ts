@@ -1,48 +1,78 @@
 import IRoute from "../interfaces/route";
-// import ChangePasswordPage from "../pages/auth/change";
+import ChangePasswordPage from "../pages/auth/change";
+import UserPage from "../pages/auth/user"
 // import ForgotPasswordPage from "../pages/auth/forgot";
-// import LoginPage from "../pages/auth/login";
-// import LogoutPage from "../pages/auth/logout";
+import LoginPage from "../pages/auth/login"
+import LogoutPage from "../pages/auth/logout";
 import RegisterPage from "../pages/auth/register";
 // import ResetPasswordPage from "../pages/auth/reset";
 import HomePage from "../pages/Home";
 
 const routes: IRoute[] = [
     {
-        path: '/',
+        path: '',
         exact: true,
         component: HomePage,
-        name: 'Home Page',
-        protected: true
+        name: 'Home',
+        protected: true,
+        navbar: false,
+        navbar_authed: false
+    },
+    {
+        path: '/home',
+        exact: true,
+        component: HomePage,
+        name: 'Home',
+        protected: true,
+        navbar: false,
+        navbar_authed: true
     },
     {
         path: '/register',
         exact: true,
         component: RegisterPage,
-        name: 'Register Page',
-        protected: false
+        name: 'Register',
+        protected: false,
+        navbar: true,
+        navbar_authed: false
+
     },
-    // {
-    //     path: '/login',
-    //     exact: true,
-    //     component: LoginPage,
-    //     name: 'Login Page',
-    //     protected: false
-    // },
-    // {
-    //     path: '/change',
-    //     exact: true,
-    //     component: ChangePasswordPage,
-    //     name: 'Change Password Page',
-    //     protected: true
-    // },
-    // {
-    //     path: '/logout',
-    //     exact: true,
-    //     component: LogoutPage,
-    //     name: 'Logout Page',
-    //     protected: true
-    // },
+    {
+        path: '/login',
+        exact: true,
+        component: LoginPage,
+        name: 'Login',
+        protected: false,
+        navbar: true,
+        navbar_authed: false
+    },
+    {
+        path: '/user',
+        exact: true,
+        component: UserPage,
+        name: 'User',
+        protected: true,
+        navbar: false,
+        navbar_authed: true
+    },
+    {
+        path: '/change',
+        exact: true,
+        component: ChangePasswordPage,
+        name: 'Change Password',
+        protected: true,
+        navbar: false,
+        navbar_authed: false
+    },
+    {
+        path: '/logout',
+        exact: true,
+        component: LogoutPage,
+        name: 'Logout',
+        protected: true,
+        navbar: false,
+        navbar_authed: true
+    },
     // {
     //     path: '/forget',
     //     exact: true,

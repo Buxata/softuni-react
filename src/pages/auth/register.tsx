@@ -9,8 +9,6 @@ import iPageProps from '../../interfaces/page';
 export interface IRegisterPageProps {}
 
 const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
-    console.log('these are my current props: ' + JSON.stringify(props));
-
     const [registering, setRegistering] = useState(false);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -47,7 +45,7 @@ const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     };
 
     return (
-        <AuthContainer header="Register">
+        <AuthContainer header={props.name}>
             <FormGroup>
                 <Input
                     type="email"

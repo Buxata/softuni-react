@@ -1,13 +1,8 @@
-export default function () {
-    return (
-        <div>
-            <h2>Contacts Page</h2>
-            <div
-                style={{
-                    width: '600px',
-                    height: '400px',
-                }}
-            />
-        </div>
-    );
-}
+import React from 'react';
+import IPageProps from '../interfaces/page';
+
+const ContactsPage: React.FunctionComponent<IPageProps> = (props) => {
+    return <h1>{props.name}</h1>;
+};
+
+export default ContactsPage;

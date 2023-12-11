@@ -3,8 +3,8 @@ import {
     getAuth,
     GoogleAuthProvider,
     createUserWithEmailAndPassword, //,
-    //signInWithEmailAndPassword,
-    //signInWithPopup,
+    signInWithEmailAndPassword,
+    signInWithPopup,
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import config from '../config/config';
@@ -24,6 +24,8 @@ export {
     Providers,
     createUserWithEmailAndPassword,
     firebaseApp, // Export the initialized app instance
+    signInWithEmailAndPassword,
+    signInWithPopup
 };
 
 export default firebaseApp;
