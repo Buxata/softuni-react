@@ -11,8 +11,7 @@ import {
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { firestore as db } from '../config/firebase/firebaseUtils';
-import { onSnapshot, collection, getDocs } from 'firebase/firestore';
-import firebase from 'firebase/compat/app';
+import { onSnapshot, collection } from 'firebase/firestore';
 
 const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
     const [projects, setProjects] = useState<any[]>();
