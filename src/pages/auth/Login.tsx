@@ -9,6 +9,9 @@ import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';
 import logging from '../../config/logging';
 import { FirebaseError } from '@firebase/util';
+import Auth from 'firebase/auth';
+import { SignInWithAuthProvider } from './modules/index';
+import Providers from '../../config/firebase/Providers';
 
 const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
     console.log('these are my current props: ' + JSON.stringify(props));
@@ -20,26 +23,26 @@ const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
     // const [confirm, setConfirm] = useState<string>('');
     const [error, setError] = useState<string>('');
 
-    const signInWithGoogle = async () => {
-        // setAauthing(true);
+    const signInWithAuthProvider = async (provider: Auth.AuthProvider) => {
+        if (error !== ' ') setError('');
+        setAauthing(true);
 
-        // signInWithPopup(auth, Providers.google))
-        //     .then((response) => {
-        //         console.log('User: ' + response.user.uid);
-        //         navigate('/');
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         setAauthing(true);
-        //     });
-        alert('not working yet.');
+        SignInWithAuthProvider(provider)
+            .then((response) => {
+                logging.info(response.toString());
+                navigate('/');
+            })
+            .catch((error: FirebaseError) => {
+                logging.info(error.message);
+                setAauthing(true);
+            });
     };
 
     const signInWithEmail = () => {
         setAauthing(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((result: object) => {
-                console.log(JSON.stringify(result));
+                logging.info(JSON.stringify(result));
                 navigate('/');
             })
             .catch((error: FirebaseError) => {
@@ -83,23 +86,32 @@ const LoginPage: React.FunctionComponent<iPageProps> = (props) => {
                     disabled={authing}
                     color="success"
                     block
-                    onClick={()=> signInWithEmail()}
-                    type='submit'
+                    onClick={() => signInWithEmail()}
+                    type="submit"
                 >
                     Sign In
                 </Button>
+                <hr className="bg-info m-3"></hr>
                 <Button
                     disabled={authing}
                     color="warning"
                     block
-                    onClick={signInWithGoogle}
+                    onClick={() => signInWithAuthProvider(Providers.google)}
+                    style={{
+                        backgroundColor: '#1DA1F2',
+                        borderColor: '#1DA1F2',
+                    }}
                 >
                     Sign In With Google
                 </Button>
                 <small>
                     <p className="m-1 text-center">
-                        Don't have an account?{' '}
+                        Don't have an account?
                         <Link to="/register">Register here.</Link>
+                    </p>
+                    <p className="m-1 text-center">
+                        Forgot your password?
+                        <Link to="/forgotten">Reset here</Link>
                     </p>
                 </small>
                 <ErrorText error={error} />

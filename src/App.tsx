@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Button, Spinner } from 'reactstrap';
 
-import firebaseApp from './config/firebase/firebase';
+import firebaseApp from './config/firebase/firebaseApp';
 import auth from './config/firebase/firebaseAuth';
 
 // import Home from './pages/Home';
@@ -33,9 +29,12 @@ export interface IApp {
 }
 
 const App: React.FunctionComponent<IApp> = (props) => {
-    if(FirebaseInstance){
-        console.log("Firebase Instance is detected");
+    if (FirebaseInstance) {
+        console.log(
+            'Firebase Instance is detected name:' + FirebaseInstance.name
+        );
     }
+
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -66,7 +65,12 @@ const App: React.FunctionComponent<IApp> = (props) => {
                                 element={<RouteHandler route={route} />}
                             />
                         ))}
-                        <Route path="*" element={<NoPage name="Page Not Found - the dreaded 404"/>} />
+                        <Route
+                            path="*"
+                            element={
+                                <NoPage name="Page Not Found - the dreaded 404" />
+                            }
+                        />
                     </Routes>
                 </div>
             </Router>
@@ -79,17 +83,36 @@ const App: React.FunctionComponent<IApp> = (props) => {
     );
 };
 
-const RouteHandler: React.FunctionComponent<{ route: IRoute }> = ({ route }) => {
-
+const RouteHandler: React.FunctionComponent<{ route: IRoute }> = ({
+    route,
+}) => {
     if (route.protected) {
         return (
             <AuthRoute>
-                <route.component component={route.component} name={route.name} path={route.path} exact={route.exact} protected={route.protected} navbar={route.navbar} navbar_authed={route.navbar_authed} />
+                <route.component
+                    component={route.component}
+                    name={route.name}
+                    path={route.path}
+                    exact={route.exact}
+                    protected={route.protected}
+                    navbar={route.navbar}
+                    navbar_authed={route.navbar_authed}
+                />
             </AuthRoute>
         );
     }
 
-    return <route.component component={route.component} name={route.name} path={route.path} exact={route.exact} protected={route.protected} navbar={route.navbar} navbar_authed={route.navbar_authed} />;
+    return (
+        <route.component
+            component={route.component}
+            name={route.name}
+            path={route.path}
+            exact={route.exact}
+            protected={route.protected}
+            navbar={route.navbar}
+            navbar_authed={route.navbar_authed}
+        />
+    );
 };
 
 export default App;

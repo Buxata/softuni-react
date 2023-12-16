@@ -1,11 +1,11 @@
 import IRoute from '../interfaces/route';
 import ChangePasswordPage from '../pages/auth/change';
 import UserPage from '../pages/auth/user';
-// import ForgotPasswordPage from "../pages/auth/forgot";
+import ForgotPasswordPage from "../pages/auth/forgotten";
 import LoginPage from '../pages/auth/login';
 import LogoutPage from '../pages/auth/logout';
 import RegisterPage from '../pages/auth/register';
-// import ResetPasswordPage from "../pages/auth/reset";
+import ResetPasswordPage from "../pages/auth/reset";
 import HomePage from '../pages/Home';
 
 const routes: IRoute[] = [
@@ -72,20 +72,24 @@ const routes: IRoute[] = [
         navbar: false,
         navbar_authed: true,
     },
-    // {
-    //     path: '/forget',
-    //     exact: true,
-    //     component: ForgotPasswordPage,
-    //     name: 'Forgot Password Page',
-    //     protected: false
-    // },
-    // {
-    //     path: '/reset',
-    //     exact: true,
-    //     component: ResetPasswordPage,
-    //     name: 'Reset Password Page',
-    //     protected: false
-    // }
+    {
+        path: '/forgotten',
+        exact: true,
+        component: ForgotPasswordPage,
+        name: 'Forgot Password Page',
+        protected: false,
+        navbar: false,
+        navbar_authed: false,
+    },
+    {
+        path: '/reset',
+        exact: true,
+        component: ResetPasswordPage,
+        name: 'Reset Password Page',
+        protected: false,
+        navbar: false,
+        navbar_authed: false,
+    }
 ];
 
 export default routes;
