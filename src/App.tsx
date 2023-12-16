@@ -1,35 +1,118 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Button, Spinner } from 'reactstrap';
 
-function App() {
-  const [count, setCount] = useState(0)
+import firebaseApp from './config/firebase/firebaseApp';
+import auth from './config/firebase/firebaseAuth';
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// import Home from './pages/Home';
+// import About from './pages/About';
+// import Contact from './pages/Contacts';
+// import People from './pages/People';
+// import Projects from './pages/Projects';
+import NoPage from './pages/NoPage';
+// import Login from './pages/auth/Login';
+import routes from './config/routes';
+import logging from './config/logging';
+
+import Navbar from './components/Navbar';
+import AuthRoute from './components/AuthRoute';
+
+import './App.css';
+import IRoute from './interfaces/route';
+import React from 'react';
+
+const FirebaseInstance = firebaseApp;
+
+export interface IApp {
+    name: string;
 }
 
-export default App
+const App: React.FunctionComponent<IApp> = (props) => {
+    if (FirebaseInstance) {
+        console.log(
+            'Firebase Instance is detected name:' + FirebaseInstance.name
+        );
+    }
+
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                logging.info('User detected.');
+            } else {
+                logging.info('No user detected');
+            }
+
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) return <Spinner color="info" />;
+    // initializeApp(config.firebaseConfig);
+    return (
+        <>
+            <Router>
+                <Navbar name={props.name} />
+                <div>
+                    <Routes>
+                        {routes.map((route, index) => (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={<RouteHandler route={route} />}
+                            />
+                        ))}
+                        <Route
+                            path="*"
+                            element={
+                                <NoPage name="Page Not Found - the dreaded 404" />
+                            }
+                        />
+                    </Routes>
+                </div>
+            </Router>
+            <div className="card">
+                <Button onClick={() => setCount((count) => count + 1)}>
+                    count is {count}
+                </Button>
+            </div>
+        </>
+    );
+};
+
+const RouteHandler: React.FunctionComponent<{ route: IRoute }> = ({
+    route,
+}) => {
+    if (route.protected) {
+        return (
+            <AuthRoute>
+                <route.component
+                    component={route.component}
+                    name={route.name}
+                    path={route.path}
+                    exact={route.exact}
+                    protected={route.protected}
+                    navbar={route.navbar}
+                    navbar_authed={route.navbar_authed}
+                />
+            </AuthRoute>
+        );
+    }
+
+    return (
+        <route.component
+            component={route.component}
+            name={route.name}
+            path={route.path}
+            exact={route.exact}
+            protected={route.protected}
+            navbar={route.navbar}
+            navbar_authed={route.navbar_authed}
+        />
+    );
+};
+
+export default App;
