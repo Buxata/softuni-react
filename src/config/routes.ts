@@ -35,7 +35,7 @@ const routes: IRoute[] = [
         name: 'Home',
         protected: false,
         navbar: false,
-        navbar_authed: true,
+        navbar_authed: false,
     },
     {
         path: '/register',
