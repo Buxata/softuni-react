@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import auth from '../../config/firebase/firebaseAuth';
-import AuthContainer from '../../components/AuthContainer';
+import AuthContainer from '../../components/AuthContainerForm';
 import { Button, FormGroup, Input } from 'reactstrap';
 import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';
 import { FirebaseError } from '@firebase/util';
 import logging from '../../config/logging';
-
 
 const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     const [registering, setRegistering] = useState(false);
@@ -20,7 +19,6 @@ const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     const navigate = useNavigate();
 
     const signUpWithEmailAndPassword = () => {
-        
         if (password !== confirm)
             setError('Please make sure your passwords martch');
         if (error !== '') setError('');

@@ -1,63 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import IPageProps from '../interfaces/page';
-import {
-    Spinner,
-    Button,
-    Card,
-    CardBody,
-    CardImg,
-    CardSubtitle,
-    CardTitle,
-} from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'reactstrap';
 import { firestore as db } from '../config/firebase/firebaseUtils';
 import { onSnapshot, collection } from 'firebase/firestore';
+import AuthContainerBlock from '../components/AuthContainerBlock';
+import ProjectModal from '../components/ProjectModal';
 
 const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
-    const [projects, setProjects] = useState<any[]>();
+    const [projects, setProjects] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        onSnapshot(collection(db, 'projects'), (snapshot: any) => {
-            setProjects(snapshot.docs.map((doc: any) => doc.data()));
-            setLoading(false);
-        }),
-            [];
-    });
+        //console.log('how often does this change');
+        const unsubsrcibe = onSnapshot(
+            collection(db, 'projects'),
+            (snapshot) => {
+                setProjects(snapshot.docs.map((doc) => doc.data()));
+                setLoading(false);
+            }
+        );
 
-    const navigate = useNavigate();
+        return () => unsubsrcibe();
+    }),
+        [db];
+
     return (
-        <>
+        <div className="projects-container">
             <h1>{props.name}</h1>
             <div className="card-conatiner">
                 {loading ? (
                     <Spinner color="info" />
                 ) : (
-                    projects?.map((project, index) => (
-                        <Card className="project-card" key={index}>
-                            <CardImg
-                                alt="Card Image Cap"
-                                src={project.img}
-                                className="project-image"
-                            />
-                            <CardTitle>{project.project}</CardTitle>
-                            <CardSubtitle>{project.brand}</CardSubtitle>
-                            <CardBody>{project.short_description}</CardBody>
-                            <Button
-                                block
-                                size="sm"
-                                onClick={() => {
-                                    navigate('/projects/');
-                                }}
-                            >
-                                {' '}
-                                Navigate to {project.project}
-                            </Button>
-                        </Card>
+                    projects?.map((project: any, index: any) => (
+                        <ProjectModal
+                            key={index}
+                            name={project.project}
+                            brand={project.brand}
+                            short_description={project.short_description}
+                            img={project.img}
+                            description={project.description}
+                            timeline={project.timeline}
+                        />
                     ))
                 )}
             </div>
-        </>
+            <AuthContainerBlock>
+                <div className="new-project">
+                    <h3>Submit a new Project</h3>
+                </div>
+            </AuthContainerBlock>
+        </div>
     );
 };
 

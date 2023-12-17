@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from '@firebase/auth';
 import auth from '../../config/firebase/firebaseAuth';
-import AuthContainer from '../../components/AuthContainer';
+import AuthContainer from '../../components/AuthContainerForm';
 import { Button, FormGroup, Input } from 'reactstrap';
 import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';

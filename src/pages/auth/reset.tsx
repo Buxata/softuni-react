@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FormGroup, Input, Spinner } from 'reactstrap';
-import AuthContainer from '../../components/AuthContainer';
+import AuthContainer from '../../components/AuthContainerForm';
 import ErrorText from '../../components/ErrorText';
 import auth from '../../config/firebase/firebaseAuth';
 import logging from '../../config/logging';

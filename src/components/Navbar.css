@@ -1,3 +1,17 @@
+.home-button {
+  text-decoration: none;
+  color: white;
+  padding: 1%;
+  display: block;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: deepskyblue;
+  /*padding: 0.5em 1em; /* Adjust padding as needed */
+}
+
 .navigation {
     display: flex;
     flex-flow: row wrap;
@@ -7,9 +21,12 @@
     margin: 0; 
     background: deepskyblue;
   }
+
+
   
   .navigation a {
     text-decoration: none;
+    font-weight: bold;
     display: block;
     padding: 1em;
     color: white;
