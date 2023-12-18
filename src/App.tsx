@@ -5,18 +5,13 @@ import { Button, Spinner } from 'reactstrap';
 import firebaseApp from './config/firebase/firebaseApp';
 import auth from './config/firebase/firebaseAuth';
 
-// import Home from './pages/Home';
-// import About from './pages/About';
-// import Contact from './pages/Contacts';
-// import People from './pages/People';
-// import Projects from './pages/Projects';
 import NoPage from './pages/NoPage';
-// import Login from './pages/auth/Login';
 import routes from './config/routes';
 import logging from './config/logging';
-
 import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
+
+import ProjectDetailPage from './pages/Project';
 
 import './App.css';
 import IRoute from './interfaces/route';
@@ -56,7 +51,7 @@ const App: React.FunctionComponent<IApp> = (props) => {
         <>
             <Router>
                 <Navbar name={props.name} />
-                <div>
+                <div className='application-container'>
                     <Routes>
                         {routes.map((route, index) => (
                             <Route
@@ -70,6 +65,10 @@ const App: React.FunctionComponent<IApp> = (props) => {
                             element={
                                 <NoPage name="Page Not Found - the dreaded 404" />
                             }
+                        />
+                        <Route
+                            path="/project/:id"
+                            element={<ProjectDetailPage id="" />}
                         />
                     </Routes>
                 </div>

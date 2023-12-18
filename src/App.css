@@ -16,11 +16,11 @@
   border-color: red;
   border-width: 5px;
 }
-.card-conatiner{
+.card-container{
+  gap: 10px;
   display: flex;
   flex-direction: row;
-  flex-flow: row wrap;
-  gap: 10px;
+  flex-wrap: wrap;
   padding: 30px;
 }
 .project-modal{
@@ -31,7 +31,7 @@
 }
 .project-modal:hover{
   max-width: 32%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
 
 }
 .project-image{
@@ -39,6 +39,19 @@
   width: 100%;
   height: 250px;
 }
-.projects-container{
+/* .projects-container{
   padding: 1%;
+
+} */
+.modal-header-menu{
+  justify-content: end;
+}
+.application-container{
+  padding: 1%;
+}
+.top-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

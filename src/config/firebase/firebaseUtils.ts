@@ -9,7 +9,7 @@ import {
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import config from '../config';
 
-const developer = true;
+const developer = false;
 
 const firebaseApp = initializeApp(config.firebaseConfig);
 

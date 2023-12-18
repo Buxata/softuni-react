@@ -33,7 +33,7 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
     //console.log('Is this constantly re-rendering?');
 
     if (loading) return <p>Loading....</p>;
-    else if (!authorized) return <p>Register for more options</p>;
+    else if (!authorized) return <p>Register/Login for more options</p>;
     else return <>{children}</>;
 };
 

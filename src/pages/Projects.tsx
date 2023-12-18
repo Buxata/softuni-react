@@ -2,14 +2,26 @@ import React, { useEffect, useState } from 'react';
 import IPageProps from '../interfaces/page';
 import { Spinner } from 'reactstrap';
 import { firestore as db } from '../config/firebase/firebaseUtils';
-import { onSnapshot, collection } from 'firebase/firestore';
-import AuthContainerBlock from '../components/AuthContainerBlock';
+import { onSnapshot, collection, deleteDoc, doc } from 'firebase/firestore';
 import ProjectModal from '../components/ProjectModal';
 import { Unsubscribe } from 'firebase/auth';
+import { BiAddToQueue } from 'react-icons/bi';
+import AuthComponentBlock from '../components/AuthContainerBlock';
+import ErrorText from '../components/ErrorText';
 
 const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
+    const [error, setError] = useState<string>();
     const [projects, setProjects] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
+
+    const handleDeleteProject = async (projectId: string) => {
+        try {
+            await deleteDoc(doc(db, 'projects', projectId));
+        } catch (error: any) {
+            setError('Error deleting project:' + error.message);
+            // Handle error as needed
+        }
+    };
 
     useEffect(() => {
         const cachedProjects = localStorage.getItem('cachedProjects');
@@ -22,7 +34,11 @@ const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
         const unsubscribe: Unsubscribe = onSnapshot(
             collection(db, 'projects'),
             (snapshot) => {
-                setProjects(snapshot.docs.map((doc) => doc.data()));
+                const projectsData = snapshot.docs.map((doc) => ({
+                    id: doc.id, // Include the document ID
+                    ...doc.data(), // Include the rest of the document data
+                }));
+                setProjects(projectsData);
                 setLoading(false);
             }
         );
@@ -30,34 +46,49 @@ const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
         return () => unsubscribe();
     }, []); // Empty dependency array ensures the effect runs only once on mount
 
-    console.log('does this rerender?');
+    console.log(projects);
 
     return (
-        <div className="projects-container">
-            <h1>{props.name}</h1>
-            <div className="card-container">
-                {loading ? (
-                    <Spinner color="info" />
-                ) : (
-                    projects?.map((project: any, index: any) => (
-                        <ProjectModal
-                            key={index}
-                            name={project.project}
-                            brand={project.brand}
-                            short_description={project.short_description}
-                            img={project.img}
-                            description={project.description}
-                            timeline={project.timeline}
-                        />
-                    ))
-                )}
-            </div>
-            <AuthContainerBlock>
-                <div className="new-project">
-                    <h3>Submit a new Project</h3>
+        <>
+            <div className="projects-container">
+                <div className="top-row">
+                    <h1>{props.name}</h1>
+
+                    <div>
+                        <AuthComponentBlock>
+                            <a href="/newProject">
+                                New Project
+                                <BiAddToQueue size={20} />
+                            </a>
+                        </AuthComponentBlock>
+                    </div>
                 </div>
-            </AuthContainerBlock>
-        </div>
+                <div className="card-container">
+                    {loading ? (
+                        <Spinner color="info" />
+                    ) : (
+                        projects?.map((project: any, index: any) => (
+                            <ProjectModal
+                                key={index}
+                                name={
+                                    project.name
+                                        ? project.name
+                                        : project.project
+                                }
+                                brand={project.brand}
+                                short_description={project.short_description}
+                                img={project.img}
+                                description={project.description}
+                                timeline={project.timeline}
+                                id={project.id}
+                                onDelete={() => handleDeleteProject(project.id)}
+                            />
+                        ))
+                    )}
+                </div>
+            </div>
+            <ErrorText error={error} />
+        </>
     );
 };
 

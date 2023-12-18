@@ -8,6 +8,7 @@ import RegisterPage from '../pages/auth/register';
 import ResetPasswordPage from "../pages/auth/reset";
 import HomePage from '../pages/Home';
 import ProjectsPage from '../pages/Projects';
+import NewProject from '../pages/NewProject';
 
 const routes: IRoute[] = [
     {
@@ -27,6 +28,15 @@ const routes: IRoute[] = [
         protected: false,
         navbar: true,
         navbar_authed: true,
+    },
+    {
+        path: '/NewProject',
+        exact: true,
+        component: NewProject,
+        name: 'New Project',
+        protected: false,
+        navbar: false,
+        navbar_authed: false,
     },
     {
         path: '/home',
