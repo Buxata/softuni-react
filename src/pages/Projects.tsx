@@ -5,14 +5,21 @@ import { firestore as db } from '../config/firebase/firebaseUtils';
 import { onSnapshot, collection } from 'firebase/firestore';
 import AuthContainerBlock from '../components/AuthContainerBlock';
 import ProjectModal from '../components/ProjectModal';
+import { Unsubscribe } from 'firebase/auth';
 
 const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
     const [projects, setProjects] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        //console.log('how often does this change');
-        const unsubsrcibe = onSnapshot(
+        const cachedProjects = localStorage.getItem('cachedProjects');
+
+        if (cachedProjects) {
+            setProjects(JSON.parse(cachedProjects));
+            setLoading(false);
+        }
+
+        const unsubscribe: Unsubscribe = onSnapshot(
             collection(db, 'projects'),
             (snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
@@ -20,14 +27,15 @@ const ProjectsPage: React.FunctionComponent<IPageProps> = (props) => {
             }
         );
 
-        return () => unsubsrcibe();
-    }),
-        [db];
+        return () => unsubscribe();
+    }, []); // Empty dependency array ensures the effect runs only once on mount
+
+    console.log('does this rerender?');
 
     return (
         <div className="projects-container">
             <h1>{props.name}</h1>
-            <div className="card-conatiner">
+            <div className="card-container">
                 {loading ? (
                     <Spinner color="info" />
                 ) : (

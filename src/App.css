@@ -23,12 +23,16 @@
   gap: 10px;
   padding: 30px;
 }
-.project-card{
+.project-modal{
   max-width: 32%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.project-card:hover{
+.project-modal:hover{
   max-width: 32%;
-  box-shadow: inset gray 0px 0px 60px -12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+
 }
 .project-image{
   object-fit: cover;

@@ -17,7 +17,7 @@ const ProjectModal: React.FunctionComponent<IProjectModalProps> = (props) => {
     const toggle = () => setModal(!modal);
 
     return (
-        <div>
+        <div className='project-modal'>
             <ProjectCard
                 name={props.name}
                 brand={props.brand}

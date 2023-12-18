@@ -4,6 +4,7 @@ import { AiOutlineVideoCameraAdd } from 'react-icons/ai';
 import { AiOutlineWarning } from 'react-icons/ai';
 
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
+    console.log('home page rerender');
     return (
         <div className={props.name}>
             {/* Header */}
