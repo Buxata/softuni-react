@@ -4,6 +4,7 @@ import ProjectCard from './ProjectCard';
 import AuthContainerBlock from './AuthContainerBlock';
 import { CiFileOn } from 'react-icons/ci';
 import { MdDelete } from 'react-icons/md';
+import { CiEdit } from 'react-icons/ci';
 
 export interface IProjectModalProps {
     img: string;
@@ -21,6 +22,7 @@ const ProjectModal: React.FunctionComponent<IProjectModalProps> = (props) => {
     const toggle = () => setModal(!modal);
 
     const linkToProject: string = '/project/' + props.id;
+    const linktoEditProject: string = '/projectEdit/' + props.id;
 
     return (
         <div className="project-modal">
@@ -39,6 +41,9 @@ const ProjectModal: React.FunctionComponent<IProjectModalProps> = (props) => {
                             <span className="modal-header-menu">
                                 <a href={linkToProject}>
                                     <CiFileOn />
+                                </a>
+                                <a href={linktoEditProject}>
+                                    <CiEdit />
                                 </a>
                                 <a onClick={props.onDelete}>
                                     <MdDelete />

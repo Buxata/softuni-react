@@ -19,8 +19,10 @@ const RegisterPage: React.FunctionComponent<iPageProps> = (props) => {
     const navigate = useNavigate();
 
     const signUpWithEmailAndPassword = () => {
-        if (password !== confirm)
+        if (password !== confirm) {
             setError('Please make sure your passwords martch');
+            return;
+        }
         if (error !== '') setError('');
 
         setRegistering(true);

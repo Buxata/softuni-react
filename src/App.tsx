@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
 
 import ProjectDetailPage from './pages/Project';
+import ProjectEditPage from './pages/ProjectEdit';
 
 import './App.css';
 import IRoute from './interfaces/route';
@@ -51,7 +52,7 @@ const App: React.FunctionComponent<IApp> = (props) => {
         <>
             <Router>
                 <Navbar name={props.name} />
-                <div className='application-container'>
+                <div className="application-container">
                     <Routes>
                         {routes.map((route, index) => (
                             <Route
@@ -69,6 +70,10 @@ const App: React.FunctionComponent<IApp> = (props) => {
                         <Route
                             path="/project/:id"
                             element={<ProjectDetailPage id="" />}
+                        />
+                        <Route
+                            path="/projectEdit/:id"
+                            element={<ProjectEditPage id="" />}
                         />
                     </Routes>
                 </div>

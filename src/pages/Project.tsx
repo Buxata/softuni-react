@@ -33,7 +33,7 @@ const ProjectDetailPage: React.FunctionComponent<IProjectPageProps> = (
 
         fetchProject();
     }, [id]);
-
+    
     return (
         <div className="project-detail-container">
             {loading ? (
