@@ -6,6 +6,7 @@ import routes from '../config/routes';
 import auth from '../config/firebase/firebaseAuth';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import IRoute from '../interfaces/route';
+import { FiHome } from 'react-icons/fi';
 
 export interface INavBarProps {
     name: string;
@@ -32,19 +33,26 @@ const Navbar: React.FunctionComponent<INavBarProps> = (props) => {
     }, []); // Empty dependency array means this effect runs once after the initial render
 
     return (
-        <ul className="navigation">
-            {navRoutes &&
-                navRoutes.map((route: IRoute, index: number) => {
-                    return (
-                        <li key={index}>
-                            <Link to={route.path}>{route.name}</Link>
-                        </li>
-                    );
-                })}
-            {/* <li>
-                <Button onClick={() => navigate('/logout')}>Sign Out</Button>
-            </li> */}
-        </ul>
+        <>
+            <nav className="navbar">
+                <Link to="/" className="home-button">
+                    <FiHome size={40} />
+                </Link>
+                <ul className="navigation">
+                    {navRoutes &&
+                        navRoutes.map((route: IRoute, index: number) => {
+                            return (
+                                <li key={index}>
+                                    <Link to={route.path}>{route.name}</Link>
+                                </li>
+                            );
+                        })}
+                    {/* <li>
+                    <Button onClick={() => navigate('/logout')}>Sign Out</Button>
+                </li> */}
+                </ul>
+            </nav>
+        </>
     );
 };
 

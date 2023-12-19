@@ -7,6 +7,8 @@ import LogoutPage from '../pages/auth/logout';
 import RegisterPage from '../pages/auth/register';
 import ResetPasswordPage from "../pages/auth/reset";
 import HomePage from '../pages/Home';
+import ProjectsPage from '../pages/Projects';
+import NewProject from '../pages/NewProject';
 
 const routes: IRoute[] = [
     {
@@ -14,7 +16,25 @@ const routes: IRoute[] = [
         exact: true,
         component: HomePage,
         name: 'Home',
-        protected: true,
+        protected: false,
+        navbar: false,
+        navbar_authed: false,
+    },
+    {
+        path: '/projects',
+        exact: true,
+        component: ProjectsPage,
+        name: 'Projects',
+        protected: false,
+        navbar: true,
+        navbar_authed: true,
+    },
+    {
+        path: '/NewProject',
+        exact: true,
+        component: NewProject,
+        name: 'New Project',
+        protected: false,
         navbar: false,
         navbar_authed: false,
     },
@@ -23,9 +43,9 @@ const routes: IRoute[] = [
         exact: true,
         component: HomePage,
         name: 'Home',
-        protected: true,
+        protected: false,
         navbar: false,
-        navbar_authed: true,
+        navbar_authed: false,
     },
     {
         path: '/register',

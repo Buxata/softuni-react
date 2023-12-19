@@ -1,11 +1,10 @@
 import React from 'react';
-import AuthContainer from '../../components/AuthContainer';
+import AuthContainer from '../../components/AuthContainerForm';
 import { Button } from 'reactstrap';
 import IPageProps from '../../interfaces/page';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../config/firebase/firebaseAuth';
 import logging from '../../config/logging';
-
 
 const LogOutPage: React.FunctionComponent<IPageProps> = (props) => {
     const navigate = useNavigate();

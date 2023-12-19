@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import auth from '../../config/firebase/firebaseAuth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import AuthContainer from '../../components/AuthContainer';
+import AuthContainer from '../../components/AuthContainerForm';
 import { Button, FormGroup, Input } from 'reactstrap';
 import ErrorText from '../../components/ErrorText';
 import iPageProps from '../../interfaces/page';

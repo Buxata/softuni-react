@@ -7,9 +7,51 @@
   border-color: red;
   border-width: 5px;
 }
+.Home{
+  padding: 1%;
+}
 
 .App:first-child{
   border-style: solid;
   border-color: red;
   border-width: 5px;
+}
+.card-container{
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+.project-modal{
+  max-width: 32%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.project-modal:hover{
+  max-width: 32%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+
+}
+.project-image{
+  object-fit: cover;
+  width: 100%;
+  height: 250px;
+}
+/* .projects-container{
+  padding: 1%;
+
+} */
+.modal-header-menu{
+  justify-content: end;
+}
+.application-container{
+  padding: 1%;
+}
+.top-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
